@@ -34,3 +34,6 @@ print(gameFifa)
 # 7 - Remover elementos do dicionario
 gameFifa.pop('classification') # Remove o par chave/valor da chave 'classification'
 print(gameFifa)
+
+del gameFifa['price']
+print(gameFifa)
