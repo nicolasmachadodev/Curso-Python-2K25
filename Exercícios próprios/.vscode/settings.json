@@ -1,0 +1,11 @@
+{
+    // Desativa sugestões do Copilot nesta pasta
+    "github.copilot.enable": false,
+    // Desativa sugestões automáticas do IntelliSense
+    "editor.quickSuggestions": {
+        "other": false,
+        "comments": false,
+        "strings": false
+    },
+    "editor.suggestOnTriggerCharacters": false
+}
