@@ -1,4 +1,5 @@
 
+
 # Exercícios de revisão completa Python (nível iniciante)
 # Resolva os exercícios abaixo usando apenas o que foi ensinado nas aulas.
 
@@ -207,3 +208,44 @@ if 'a' in letterTuple:
 nameSet = {'Nicolas', 'Emilly', 'Yuri', 'Cristiane'}
 for name in nameSet:
     print(name.upper())
+
+# 36. Peça ao usuário para digitar uma palavra e imprima quantas vogais ela possui.
+word = input("Digite uma palavra: ")
+sum = 0
+for letter in word:
+    if letter.lower() in 'aeiou':
+        sum += 1
+print(f"A palavra {word}, possue {sum} vogais")
+
+# 37. Crie uma lista com 4 números e imprima o maior e o menor valor percorrendo a lista com um laço e comparações.
+listNumbers = [2, 65, 73, 4]
+lower = listNumbers[0]
+upper = listNumbers[0]
+for number in listNumbers:
+    if number < lower:
+        lower = number
+    elif number > upper:
+        upper = number
+print(f'Maior numero {upper}, menor: {lower}')
+
+# 38. Crie um dicionário chamado produto com as chaves 'nome', 'preco' e 'estoque'. Atualize o valor do estoque e imprima o dicionário.
+produto = {
+    'nome': 'Shampoo',
+    'preco': 23.90,
+    'estoque': 34
+}
+produto['estoque'] = 22
+print(produto)
+
+# 39. Crie uma tupla com 6 números e imprima apenas os números ímpares.
+numberTuple = (2, 6, 5, 12, 64, 7)
+for number in numberTuple:
+    if number % 2 != 0:
+        print(number)
+
+# 40. Crie um set com 5 letras e remova uma letra escolhida pelo usuário.
+letterSet = {'a', 'c', 'n', 'e', 'y'}
+print(letterSet)
+wordRemove = input('Qual letra deseja remover?: ')
+
+letterSet.remove(wordRemove)
