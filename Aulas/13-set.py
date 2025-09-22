@@ -4,7 +4,7 @@ print(gamesSet)
 # Não é possível acessar elementos por índice, pois sets são não ordenados
 # Os elementos são únicos, ou seja, não aceitam repetição
  
-# 1 - Buscar o taamnho do set
+# 1 - Buscar o tamanho do set
 print(len(gamesSet))
 
 # 2 - True e 1 são considerados o mesmo valor
