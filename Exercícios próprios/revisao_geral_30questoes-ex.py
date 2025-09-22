@@ -1,3 +1,4 @@
+
 # Exercícios de revisão completa Python (nível iniciante)
 # Resolva os exercícios abaixo usando apenas o que foi ensinado nas aulas.
 
@@ -171,3 +172,38 @@ loja = {
 
 # 30. Imprima o estoque do primeiro produto do dicionário loja.
 print(loja['shampoo']['estoque'])
+
+# 31. Peça ao usuário para digitar dois números e imprima qual é o maior.
+n1 = int(input('Digite um numero: '))
+n2 = int(input('Digite outro numero: '))
+if n1 > n2:
+    print(f"{n1} é maior que {n2}")
+elif n1 == n2:
+    print('Ambos são iguais.')
+else:
+    print(f'{n2} é maior que {n1}.')
+
+# 32. Crie uma lista de 6 números e imprima a soma de todos os valores.
+numbersList = [2, 5, 6, 3, 7, 23]
+sum = 0
+for i in numbersList:
+    sum += i
+print(sum)
+
+# 33. Crie um dicionário chamado pessoa com as chaves 'nome', 'idade' e 'cidade'. Imprima uma frase usando os valores desse dicionário.
+pessoa = {
+    'nome': 'Nicolas',
+    'cidade': 'Foz do Jordão',
+    'idade': 16
+}
+print(f"Meu nome é {pessoa['nome']}, tenho {pessoa['idade']} anos e moro em {pessoa['cidade']}.")
+
+# 34. Crie uma tupla com 5 letras e verifique se a letra 'a' está presente.
+letterTuple = ('a', 'f', 's', 'y', 'q')
+if 'a' in letterTuple:
+    print('Letra "A" encontrada.')
+
+# 35. Crie um set com 4 nomes e imprima todos os nomes em letras maiúsculas.
+nameSet = {'Nicolas', 'Emilly', 'Yuri', 'Cristiane'}
+for name in nameSet:
+    print(name.upper())
