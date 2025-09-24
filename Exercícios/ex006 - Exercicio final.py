@@ -13,14 +13,46 @@ Ele deve atender aos seguintes requisitos:
 Obs: Este é o exercício de final do módulo, então aproveite para utilizar todos os recursos vistos até agora, como os funções, condições, loop, listas, etc.
 
 """
+
+
 timesDict = {}
 done = True
+
+# Functions
+
 def seeAll(timesDict):
-    for key in timesDict:
-        print(f"{key} - Jogadores: {len(timesDict[key]['Jogadores'])}")
+    for index in timesDict:
+        newDict = timesDict[index]
+        for key in newDict.keys():
+            print(f'{index} | {key} - Jogadores: {len(newDict[key]['Jogadores'])}')
+
+def newPlayer():
+    timeSelected = int(input('Qual time deseja adicionar um jogador?: '))
+    newDict = timesDict[timeSelected]
+    for key in newDict.keys():
+        newPlayer = input('Digite o nome desse jogador: ')
+        newDict[key]["Jogadores"].append(newPlayer)
+
+def removePlayer():
+    timeSelected = int(input('Qual time deseja remover um jogador?: '))
+    newDict = timesDict[timeSelected]
+    for key in newDict.keys():
+        removePlayer = input('Digite o nome desse jogador: ')
+        newDict[key]["Jogadores"].remove(removePlayer)
+
+def seeAllPlayers():
+    timeSelected = int(input('Qual time deseja listar: '))
+    newDict = timesDict[timeSelected]
+    for key in newDict.keys():
+        count = 0
+        for player in newDict[key]["Jogadores"]:
+            count += 1
+            print(f'{count} - {player}')
+# Loop
 
 while done:
-    print("""Times de futebol.
+    print("""
+    Times de futebol.
 
 1 - Adicionar um novo time
 2 - Remover um time
@@ -30,14 +62,23 @@ while done:
 6 - Listar jogadores de um time
 7 - Sair""")
     
-
-
     option = int(input("Selecione: "))
+    print('')
     if option == 1:
-        newTime = input('Nome do novo time: ')
-        timesDict[newTime] = {"Jogadores": []}
+        newTime = input('Nome do time que deseja cadastrar: ')
+        seuIndex = len(timesDict) + 1
+        timesDict[seuIndex] = {newTime: {'Jogadores': []}}
+    elif option == 2:
+        removeTime = int(input("Digite o numero do time que deseja remover: "))
+        del timesDict[removeTime]
+        print('Time removido com sucesso!')
     elif option == 3:
         seeAll(timesDict)
-    elif option == 7:
+    elif option == 4:
+        newPlayer()
+    elif option == 5:
+        removePlayer()
+    elif option == 6:
+        seeAllPlayers()
+    else:
         break;
-    
