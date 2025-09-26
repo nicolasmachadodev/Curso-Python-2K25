@@ -1,4 +1,4 @@
 name = "Nicolas"
-idade = 16
-valor = 2.6
-vivo = True
+idade = 16 # int
+valor = 2.6 # float
+vivo = False #booleans
