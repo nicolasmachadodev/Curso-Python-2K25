@@ -1,4 +1,4 @@
-gameName = input('Digite o nome do jogo: ')
+gameName = input('Digite o nome do jogo: > ')
 rating = 0
 qtdRatings = 0
 totalRating = 0
