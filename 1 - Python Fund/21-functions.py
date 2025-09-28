@@ -7,9 +7,10 @@ wellcome()
 
 # 2 - Função para somar dois números
 def sum(a, b):
-    return a + b
+    return a + b, a, b
 
-print(sum(5, 10))
+soma, n1, n2 = sum(5, 6)
+print(f"{soma}, {n1}, {n2}")
 
 # 3 - Função para cadastrar um jogo
 def createGame():
