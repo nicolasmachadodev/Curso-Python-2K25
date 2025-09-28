@@ -1,5 +1,6 @@
 gamesList = ["GTA V", "Minecraft", "FIFA 23", "The Last of Us"]
-
+newList = list(enumerate(gamesList))
+print(newList)
 # 1 - Iterando valores de uma lista com for
 for game in gamesList:
     print(game) 
@@ -25,3 +26,7 @@ for i in range(gameRating):
     rating = float(input(f'Dê uma nota para o jogo {gameName} (0.0 a 10.0): '))
     totalRating += rating
 print(f'A média das notas para o jogo {gameName} é {totalRating / gameRating:.1f}')
+
+# 5 - Iterando sobre indices
+for index, game in enumerate(gamesList):
+    print (f'{index} - {game}')

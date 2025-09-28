@@ -25,8 +25,8 @@ count = gamesList.count("GTA V")
 print("GTA V aparece:", count, "vez(es)")
 
 # Ordena a lista em ordem alfabética
-gamesList.sort()
-print(gamesList)
+
+print(f'Ordem: {sorted(gamesList, reverse=True)}')
 
 # Inverte a ordem da lista
 gamesList.reverse()

@@ -5,7 +5,7 @@ def calcSoma(a, b):
         raise ValueError("Nao somamos numeros negativos.")
     return print(a + b)
 
-calcSoma(5, -2)
+calcSoma(5, 5)
 
 # 2 - Podemos fazer uma verificacao rapida usando o assert
 idade = -2

@@ -36,6 +36,7 @@ while True:
 # Criando a turma
    classe = list()
    print('Digite o nome da turma, ex: Turma A')
+   continue
    className = input('> ')
    print('\nA turma possue quantos alunos? ')
    alunos = int(input('> '))
@@ -50,7 +51,7 @@ while True:
 
 
 # Variaveis de controle
-   relatorio = """Script feitor por: Nick
+   relatorio = """Script feito por: Nick
    """
    mean = []
    meanAluno = 0
