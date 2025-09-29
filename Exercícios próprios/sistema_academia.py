@@ -36,7 +36,20 @@ Regras:
 - Não use bibliotecas externas.
 - O sistema deve rodar até que o usuário escolha a opção "Sair".
 """
+def addNew(name, idade, plano, listDict):
+   if plano == "1":
+      listDict.append({'name': name.capitalize(), 'idade': idade, 'plano': 'Semanal'})
+   elif plano == "2":
+      listDict.append({'name': name.capitalize(), 'idade': idade, 'plano': 'Mensal'})
+   elif plano == "3":
+      listDict.append({'name': name.capitalize(), 'idade': idade, 'plano': 'Anual'}) 
+   else:
+      print('Plano invalido.')
 
+def removeOne(nameRemove, listDict):
+   for index, dic in enumerate(listDict):
+      if dic['name'] == nameRemove.capitalize():
+         listDict.remove(listDict[index])
 
 listDict = list()
 while True:
@@ -57,21 +70,11 @@ while True:
       name = input("Digite o nome do aluno:\n> ")
       idade = int(input('Digite a idade do aluno:\n> '))
       plano = input('Qual plano o anulo adquiriu?\n1 - Semanal\n2 - Mensal\n3 - Anual\n> ')
-      if plano == "1":
-         listDict.append({'name': name.capitalize(), 'idade': idade, 'plano': 'Semanal'})
-      elif plano == "2":
-         listDict.append({'name': name.capitalize(), 'idade': idade, 'plano': 'Mensal'})
-      elif plano == "3":
-         listDict.append({'name': name.capitalize(), 'idade': idade, 'plano': 'Anual'}) 
-      else:
-         print('Plano invalido.') 
+      addNew(name, idade, plano, listDict)
          
    elif choice == '2':
-      print(listDict)
       nameRemove = input('Digite o nome do aluno que deseja remover:\n> ')
-      for index, dic in enumerate(listDict):
-         if dic['name'] == nameRemove.capitalize():
-            listDict.remove(listDict[index])
+      removeOne(nameRemove, listDict)
          
                 
    elif choice == '3':
