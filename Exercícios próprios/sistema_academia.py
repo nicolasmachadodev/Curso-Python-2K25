@@ -51,6 +51,10 @@ def removeOne(nameRemove, listDict):
       if dic['name'] == nameRemove.capitalize():
          listDict.remove(listDict[index])
 
+def seeAll(listDict):
+   for index, dic in enumerate(listDict):
+      print(f'Nome: {dic['name']}\nIdade: {dic['idade']}\nPlano: {dic['plano']}')
+
 listDict = list()
 while True:
    print("""\n-_-_-_-_-_-_-_Academy System_-_-_-_-_-_-_-
@@ -72,13 +76,16 @@ while True:
       plano = input('Qual plano o anulo adquiriu?\n1 - Semanal\n2 - Mensal\n3 - Anual\n> ')
       addNew(name, idade, plano, listDict)
          
+         
    elif choice == '2':
       nameRemove = input('Digite o nome do aluno que deseja remover:\n> ')
       removeOne(nameRemove, listDict)
          
                 
    elif choice == '3':
-      pass
+      seeAll(listDict)
+
+
    elif choice == '4':
       pass
    elif choice == '5':
