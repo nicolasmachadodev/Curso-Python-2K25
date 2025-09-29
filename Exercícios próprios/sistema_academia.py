@@ -9,9 +9,8 @@ Desafio: Crie um programa completo que:
    - 3: Listar todos os alunos cadastrados
    - 4: Pesquisar aluno pelo nome
    - 5: Mostrar apenas alunos maiores de idade
-   - 6: Transformar todos os nomes em maiúsculo
-   - 7: Trocar o plano atual de um aluno
-   - 8: Sair do sistema
+   - 6: Trocar o plano atual de um aluno
+   - 7: Sair do sistema
 
 2. Armazene os alunos em uma lista de dicionários, onde cada dicionário contém:
    - nome (str)
@@ -24,18 +23,18 @@ Desafio: Crie um programa completo que:
 4. Para a opção de maiores de idade (5):
    - Mostre apenas os alunos com idade >= 18.
 
-5. Para a opção de transformar nomes (6):
-   - Atualize todos os nomes para maiúsculo.
-
 6. Para a opção de calcular valores (7):
    - Crie uma listagem de todos os alunos com o respectivo valor a pagar segundo o plano escolhido.
 
 Regras:
 - Use apenas recursos já vistos nas aulas.
-- Use listas, dicionários, laços, input, print, if/else, while, map, filter, etc.
+- Use listas, dicionários, laços, input, print, if/else, while, etc.
 - Não use bibliotecas externas.
 - O sistema deve rodar até que o usuário escolha a opção "Sair".
 """
+
+from time import sleep
+
 def addNew(name, idade, plano, listDict):
    if plano == "1":
       listDict.append({'name': name.capitalize(), 'idade': idade, 'plano': 'Semanal'})
@@ -53,10 +52,33 @@ def removeOne(nameRemove, listDict):
 
 def seeAll(listDict):
    for index, dic in enumerate(listDict):
-      print(f'Nome: {dic['name']}\nIdade: {dic['idade']}\nPlano: {dic['plano']}')
+      print(f'Nome: {dic['name']}\nIdade: {dic['idade']}\nPlano: {dic['plano']}\n')
+
+def seeByName(name, listDict):
+   for index, dic in enumerate(listDict):
+      if dic['name'] == name.capitalize():
+         print(f'\nNome: {dic['name']}\nIdade: {dic['idade']}\nPlano: {dic['plano']}\n')
+
+def onlyOver18(listDict):
+   for index, dic in enumerate(listDict):
+      if dic['idade'] >= 18:
+         print(f'\nNome: {dic['name']}\nIdade: {dic['idade']}\nPlano: {dic['plano']}\n')
+
+def changePlan(name, newPlan, listDict):
+   for index, dic in enumerate(listDict):
+      if dic['name'] == name.capitalize():
+         if newPlan == '1':
+            dic['plano'] = 'Semanal'
+         elif newPlan == '2':
+            dic['plano'] = 'Mensal'
+         elif newPlan == '3':
+            dic['plano'] = 'Anual'
+         else:
+            print('Valor inexistente.')
 
 listDict = list()
 while True:
+   sleep(1)
    print("""\n-_-_-_-_-_-_-_Academy System_-_-_-_-_-_-_-
          
 1 - Cadastrar aluno
@@ -64,9 +86,8 @@ while True:
 3 - Listar todos os alunos
 4 - Listar alunos pelo nome
 5 - Mostrar apenas alunos maiores de idade
-6 - Transformar todos os nomes em maiusculo
-7 - Alterar o plano mensal de algum aluno
-8 - Sair do programa""")
+6 - Alterar o plano de algum aluno
+7 - Sair do programa""")
    choice = input('> ')
    
    print("\n-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-\n")
@@ -87,12 +108,27 @@ while True:
 
 
    elif choice == '4':
-      pass
+      name = input('Digite o nome do aluno:\n> ')
+      seeByName(name, listDict)
+
+
    elif choice == '5':
-      pass
+      onlyOver18(listDict)
+
+
    elif choice == '6':
-      pass
+      nome = input('Digite o nome do aluno:\n> ')
+      planChange = input("""Planos:
+                         
+1 - Semanal
+2 - Mensal
+3 - Anual
+
+> """)
+      changePlan(nome, planChange, listDict)
+
    elif choice == '7':
-      pass
-   elif choice == '8':
-      pass
+      print('Finalizando...')
+      sleep(3)
+      break
+
