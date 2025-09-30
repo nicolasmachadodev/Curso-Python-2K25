@@ -10,7 +10,9 @@ Desafio: Crie um programa completo que:
    - 4: Pesquisar aluno pelo nome
    - 5: Mostrar apenas alunos maiores de idade
    - 6: Trocar o plano atual de um aluno
-   - 7: Sair do sistema
+   - 7: Salvar relatorio dos alunos atuais em um arquivo
+   - 8: Recuperar todos os alunos salvos
+   - 9: Sair do sistema
 
 2. Armazene os alunos em uma lista de dicionários, onde cada dicionário contém:
    - nome (str)
@@ -87,7 +89,9 @@ while True:
 4 - Listar alunos pelo nome
 5 - Mostrar apenas alunos maiores de idade
 6 - Alterar o plano de algum aluno
-7 - Sair do programa""")
+7 - Salvar todos os alunos em um arquivo
+8 - Recuperar alunos salvos anteriormente
+9 - Sair do programa""")
    choice = input('> ')
    
    print("\n-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-_-\n")
@@ -126,8 +130,29 @@ while True:
 
 > """)
       changePlan(nome, planChange, listDict)
-
+#     [{{},{},{}}]
    elif choice == '7':
+      listDados = list()
+      for dic in listDict:
+         print(f"dic: {dic}")
+         listDados.append([[dic['name'], dic['idade'], dic['plano']] for dic in listDict])
+      arquivoW = open('alunosGym.txt', 'a')
+      for pessoa in listDados:
+         print(listDados)
+         print(pessoa)
+         arquivoW = open('alunosGym.txt', 'a')
+         for dados in pessoa:
+            print(dados)
+            arquivoW.write(f"Nome: {dados[0]}\nIdade: {dados[1]}\nPlano: {dados[2]}\n\n")
+      arquivoW.close()
+         
+
+      
+
+   elif choice == '8':
+      pass
+
+   elif choice == '9':
       print('Finalizando...')
       sleep(3)
       break

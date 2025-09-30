@@ -1,4 +1,5 @@
 
+
 # 1 - Podemos criar nosso proprio erro com o raise.
 def calcSoma(a, b):
     if a < 0 or b < 0:
