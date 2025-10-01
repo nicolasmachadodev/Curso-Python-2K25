@@ -35,11 +35,11 @@ Regras:
 - O sistema deve rodar até que o usuário escolha a opção "Sair".
 """
 
-from time import sleep
+from time import sleep; import pickle
 
 def addNew(name, idade, plano, listDict):
    if plano == "1":
-      listDict.append({'name': name.capitalize(), 'idade': idade, 'plano': 'Semanal'})
+      listDict.append({'name': name.capitalize(), 'idade': idade, 'plano': 'Trimestral'})
    elif plano == "2":
       listDict.append({'name': name.capitalize(), 'idade': idade, 'plano': 'Mensal'})
    elif plano == "3":
@@ -54,23 +54,23 @@ def removeOne(nameRemove, listDict):
 
 def seeAll(listDict):
    for index, dic in enumerate(listDict):
-      print(f'Nome: {dic['name']}\nIdade: {dic['idade']}\nPlano: {dic['plano']}\n')
+      print(f"Nome: {dic['name']}\nIdade: {dic['idade']}\nPlano: {dic['plano']}\n")
 
 def seeByName(name, listDict):
    for index, dic in enumerate(listDict):
-      if dic['name'] == name.capitalize():
-         print(f'\nNome: {dic['name']}\nIdade: {dic['idade']}\nPlano: {dic['plano']}\n')
+      if dic['name'] in name.capitalize():
+         print(f"\nNome: {dic['name']}\nIdade: {dic['idade']}\nPlano: {dic['plano']}\n")
 
 def onlyOver18(listDict):
    for index, dic in enumerate(listDict):
       if dic['idade'] >= 18:
-         print(f'\nNome: {dic['name']}\nIdade: {dic['idade']}\nPlano: {dic['plano']}\n')
+         print(f"\nNome: {dic['name']}\nIdade: {dic['idade']}\nPlano: {dic['plano']}\n")
 
 def changePlan(name, newPlan, listDict):
    for index, dic in enumerate(listDict):
       if dic['name'] == name.capitalize():
          if newPlan == '1':
-            dic['plano'] = 'Semanal'
+            dic['plano'] = 'Trimestral'
          elif newPlan == '2':
             dic['plano'] = 'Mensal'
          elif newPlan == '3':
@@ -78,10 +78,30 @@ def changePlan(name, newPlan, listDict):
          else:
             print('Valor inexistente.')
 
-listDict = list()
+def saveAll(listDict):
+   with open('members.pkl', 'wb') as arq:
+      pickle.dump(listDict, arq)
+   print('Salvo com sucesso!')
+def returnDados():
+   try:
+      with open('members.pkl', 'rb') as arq:
+         listDict = pickle.load(arq)
+         return listDict
+   except:
+      with open('members.pkl', 'wb') as arq:
+         listVazia = []
+         pickle.dump(listVazia, arq)
+
+def deleteAll():
+     with open('members.pkl', 'wb') as arq:
+        pickle.dump([], arq)
+
+returnDados()
+listDict = returnDados()
+
 while True:
    sleep(1)
-   print("""\n-_-_-_-_-_-_-_Academy System_-_-_-_-_-_-_-
+   print("""\n-_-_-_-_-_-_-_-_-_Gym System_-_-_-_-_-_-_-_-_-
          
 1 - Cadastrar aluno
 2 - Remover aluno
@@ -89,8 +109,8 @@ while True:
 4 - Listar alunos pelo nome
 5 - Mostrar apenas alunos maiores de idade
 6 - Alterar o plano de algum aluno
-7 - Salvar todos os alunos em um arquivo
-8 - Recuperar alunos salvos anteriormente
+7 - Salvar todos os alunos
+8 - Excluir todos os alunos
 9 - Sair do programa""")
    choice = input('> ')
    
@@ -98,7 +118,7 @@ while True:
    if choice == '1':
       name = input("Digite o nome do aluno:\n> ")
       idade = int(input('Digite a idade do aluno:\n> '))
-      plano = input('Qual plano o anulo adquiriu?\n1 - Semanal\n2 - Mensal\n3 - Anual\n> ')
+      plano = input('Qual plano o anulo adquiriu?\n1 - Trimestral\n2 - Mensal\n3 - Anual\n> ')
       addNew(name, idade, plano, listDict)
          
          
@@ -124,36 +144,25 @@ while True:
       nome = input('Digite o nome do aluno:\n> ')
       planChange = input("""Planos:
                          
-1 - Semanal
+1 - Trimestral
 2 - Mensal
 3 - Anual
 
 > """)
       changePlan(nome, planChange, listDict)
-#     [{{},{},{}}]
-   elif choice == '7':
-      listDados = list()
-      for dic in listDict:
-         print(f"dic: {dic}")
-         listDados.append([[dic['name'], dic['idade'], dic['plano']] for dic in listDict])
-      arquivoW = open('alunosGym.txt', 'a')
-      for pessoa in listDados:
-         print(listDados)
-         print(pessoa)
-         arquivoW = open('alunosGym.txt', 'a')
-         for dados in pessoa:
-            print(dados)
-            arquivoW.write(f"Nome: {dados[0]}\nIdade: {dados[1]}\nPlano: {dados[2]}\n\n")
-      arquivoW.close()
-         
 
-      
+
+   elif choice == '7':
+      saveAll(listDict)
 
    elif choice == '8':
-      pass
+      listDict.clear()
+      deleteAll()
 
    elif choice == '9':
       print('Finalizando...')
       sleep(3)
       break
 
+   else:
+      print("Opção inválida.")
