@@ -1,39 +1,3 @@
-# Super Desafio Python: Sistema de Academia Avançado
-
-"""
-Desafio: Crie um programa completo que:
-
-1. Mostre um menu com opções para o usuário:
-   - 1: Cadastrar aluno (nome, idade e plano)
-   - 2: Remover aluno
-   - 3: Listar todos os alunos cadastrados
-   - 4: Pesquisar aluno pelo nome
-   - 5: Mostrar apenas alunos maiores de idade
-   - 6: Trocar o plano atual de um aluno
-   - 7: Salvar relatorio dos alunos atuais em um arquivo
-   - 8: Recuperar todos os alunos salvos
-   - 9: Sair do sistema
-
-2. Armazene os alunos em uma lista de dicionários, onde cada dicionário contém:
-   - nome (str)
-   - idade (int)
-   - plano (str: "mensal", "trimestral" ou "anual")
-
-3. Para a opção de pesquisa (4):
-   - Mostre todos os alunos cujo nome contenha a palavra digitada (ignorar maiúsculas/minúsculas).
-
-4. Para a opção de maiores de idade (5):
-   - Mostre apenas os alunos com idade >= 18.
-
-6. Para a opção de calcular valores (7):
-   - Crie uma listagem de todos os alunos com o respectivo valor a pagar segundo o plano escolhido.
-
-Regras:
-- Use apenas recursos já vistos nas aulas.
-- Use listas, dicionários, laços, input, print, if/else, while, etc.
-- Não use bibliotecas externas.
-- O sistema deve rodar até que o usuário escolha a opção "Sair".
-"""
 
 from time import sleep; import pickle
 
