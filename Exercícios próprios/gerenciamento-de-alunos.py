@@ -36,7 +36,6 @@ while True:
 # Criando a turma
    classe = list()
    print('Digite o nome da turma, ex: Turma A')
-   continue
    className = input('> ')
    print('\nA turma possue quantos alunos? ')
    alunos = int(input('> '))
