@@ -1,4 +1,10 @@
 class Pessoas:
+
+    vivo = True
+    possui_olho = True
+    possui_boca = True
+    raca = "Humana"
+
     def __init__(self, nome, idade, cpf):
         self.nome = nome
         self.idade = idade
@@ -16,3 +22,7 @@ p2 = Pessoas('Emilly', 17, 68638361904)
 p1.logar_sistema()
 
 print(p2.idade)
+
+Pessoas.vivo = False
+
+print(p1.vivo)
