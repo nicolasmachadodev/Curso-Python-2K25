@@ -11,8 +11,7 @@ Criar um sistema COMPLETO de gerenciamento de alunos e treinos da academia.
 1️⃣ Cadastrar aluno  
    - Pedir nome, idade, plano (Mensal, Trimestral, Anual), peso e altura  
    - Calcular o IMC automaticamente  
-   - Guardar os dados num dicionário  
-   - Salvar tudo em “alunos.pkl” (com pickle)
+   - Guardar os dados num dicionário
 
 2️⃣ Listar todos os alunos  
    - Mostrar nome, idade, plano e IMC formatado com 2 casas decimais  
@@ -51,8 +50,6 @@ Criar um sistema COMPLETO de gerenciamento de alunos e treinos da academia.
 ⚙️ DICA DE ESTRUTURA DO CÓDIGO:
 
 1️⃣ Funções principais:
-   - `carregar_dados()`
-   - `salvar_dados()`
    - `cadastrar_aluno()`
    - `listar_alunos()`
    - `buscar_aluno()`
