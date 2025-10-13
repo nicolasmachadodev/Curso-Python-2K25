@@ -131,10 +131,11 @@ def novo_aluno(listAlunos):
    elif planoAluno == 3:
       novoAluno['plano'] = 'Anual'
    else:
-      print('Valor inválido.')
+      print('\nPlano inválido.')
       return
 
    # Adicionando novo aluno na lista de alunos.
+   novoAluno['treinos'] = []
    listAlunos.append(novoAluno)
    print('\nAluno Adicionado com sucesso.')
 
@@ -180,7 +181,7 @@ Aluno(a): {aluno['nome']}
 2 - Peso
 3 - Altura
 4 - Plano
-5 - Voltar ao menu
+5 - Proximo/Sair
                               
 > """)
          try:
@@ -201,17 +202,20 @@ Aluno(a): {aluno['nome']}
                if newPlano == 1:
                   aluno['plano'] = 'Mensal'
                   print('\nPlano alterado com sucesso!')
+                  
                elif newPlano == 2:
                   aluno['plano'] = 'Trimestral'
                   print('\nPlano alterado com sucesso!')
+                  
                elif newPlano == 3:
                   aluno['plano'] = 'Anual'
                   print('\nPlano alterado com sucesso!')
+                  
                else:
                   print('Valor inválido.')
-               return
+                  return
             elif choiceChange == '5':
-               return
+               continue
             else:
                print('Opção inválida.')
                return
@@ -241,13 +245,76 @@ def excluir_aluno(listAlunos):
             
 
 
-def adicionar_treinos(listAlunos):
-   return
+def gerenciar_treinos(listAlunos):
+   choice = input(f"""Selecione a opção:
+
+1 - Adicionar treinos
+2 - Remover Treinos
+3 - Listar treinos   
+               
+> """)
+   if choice == '1':
+      nameAluno = input('Digite o nome do aluno que deseja adicionar treinos.\n> ')
+      for aluno in listAlunos:
+         if nameAluno.lower() in aluno['nome'].lower():
+            choice = input(f'\nAluno selecionado: {aluno['nome']}\n\n1 - Adicionar\n2 - Proximo/Sair\n> ')
+            if choice == '1':
+               treino = input("Qual seria o treino que deseja adicionar?\n> ")
+               aluno['treinos'].append(treino)
+            else:
+               print('Voltando ao menu inicial.')
+
+   elif choice == '2':
+      nameAluno = input('Digite o nome do aluno que deseja remover treinos.\n> ')
+      for aluno in listAlunos:
+         if nameAluno.lower() in aluno['nome'].lower():
+            choice = input(f'\nAluno selecionado: {aluno['nome']}\n\n1 - Remover\n2 - Proximo/Sair\n> ')
+            if choice == '1':
+               try:
+                  indexTreino = int(input('Digite o número exato do treino que deseja remover. Liste todos primeiro! \n0 - Sair\n> '))
+                  if indexTreino != 0:
+                     aluno['treinos'].remove(aluno['treinos'][indexTreino - 1])
+                     print('Treino removido com sucesso!')
+                  else:
+                     print('Saindo.')
+                     break
+               except:
+                  print('Digite um valor válido.')
+
+   elif choice == '3':
+      nameAluno = input('Digite o nome do aluno que deseja listar treinos.\n> ')
+      for aluno in listAlunos:
+         if nameAluno.lower() in aluno['nome'].lower():
+            if len(aluno['treinos']) > 0:
+               print(f"""
+        {aluno['nome']}
+                  
+Treinos:""")
+               for i, treino in enumerate(aluno['treinos']):
+                  print(f"{i + 1} - {treino}")
+            else:
+               continue
 
 
 
-def remover_treinos(listAlunos):
-   return
+def ranking_imc(listAlunos):
+   
+   listIMC = [aluno['imc'] for aluno in listAlunos]
+   listIMC.sort()
+   c = 0
+   if len(listAlunos) >= 3:
+      print(f'{"POSIÇÃO":<7} | {"NOME":<17} | {"IMC":<6}')
+      print('-' * 40)
+      for imc in listIMC[:3]:
+         for aluno in listAlunos:
+            if imc == aluno['imc']:
+               c += 1
+               print(f'{c:^7} | {aluno['nome']:<17} | {aluno['imc']:<6}')
+      print('-' * 40)
+   else:
+      print('\nÉ necessário no mínimo 3 alunos para obter o ranking de IMC.')
+
+               
 
 #    888b     d888                            
 #    8888b   d8888                            
@@ -360,8 +427,10 @@ while True:
 #    \_/ \_/\__,_|\__,_|  \__|_|  \___|_|_| |_|\___/|___/
 #                                                        
    elif choice == "6":
-      pass
-
+      try:
+         gerenciar_treinos(listAlunos)
+      except Exception as e:
+         print(f'Ocorreu um erro ao tentar gerenciar os treinos. Tente novamente! Erro: {e}')
 #       __             _    _                   _        _                
 #      /__\ __ _ _ __ | | _(_)_ __   __ _    __| | ___  (_)_ __ ___   ___ 
 #     / \/// _` | '_ \| |/ / | '_ \ / _` |  / _` |/ _ \ | | '_ ` _ \ / __|
@@ -369,7 +438,10 @@ while True:
 #    \/ \_/\__,_|_| |_|_|\_\_|_| |_|\__, |  \__,_|\___| |_|_| |_| |_|\___|
 #                                   |___/                                 
    elif choice == "7":
-      pass
+      try:
+         ranking_imc(listAlunos)
+      except Exception as e:
+         print(f'Ocorreu um erro ao tentar mostrar o ranking de melhores IMCs. Tente novamente! Erro: {e}')
 
 #       ___            _                
 #      / __\ __ _  ___| | ___   _ _ __  
