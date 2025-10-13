@@ -91,7 +91,10 @@ Criar um sistema COMPLETO de gerenciamento de alunos e treinos da academia.
 
 # 💡 Dica extra: use round(valor, 2) para formatar o IMC.
 
-from time import sleep;
+from time import sleep
+from datetime import datetime
+import pickle
+
 
 
 
@@ -103,6 +106,13 @@ from time import sleep;
 #    888     888  888 888  888 888      888    888 888  888 888  888 "Y8888b. 
 #    888     Y88b 888 888  888 Y88b.    Y88b.  888 Y88..88P 888  888      X88 
 #    888      "Y88888 888  888  "Y8888P  "Y888 888  "Y88P"  888  888  88888P' 
+
+def new_log(text):
+   formato = "[%d/%m/%Y] %H:%M:%S - "
+   data = datetime.now()
+   dataAtual = data.strftime(formato)
+   with open('logs.txt', 'a') as arq:
+      arq.write(f"{dataAtual}{text}\n")
 
 def novo_aluno(listAlunos):
    # Obtendo dados do aluno.
@@ -137,21 +147,26 @@ def novo_aluno(listAlunos):
    # Adicionando novo aluno na lista de alunos.
    novoAluno['treinos'] = []
    listAlunos.append(novoAluno)
+   new_log(f'Usúario adicionou um novo aluno chamado: {nameAluno}')
    print('\nAluno Adicionado com sucesso.')
 
 
 
 def listar_alunos(listAlunos):
-   print(f"Total de alunos cadastrados: {len(listAlunos)}\n")
-   print(f"{'Nome':<15} | {'Plano':<12} | {'Idade':<5} | {'IMC':<6}")
-   print("-" * 50)
-   for aluno in listAlunos:
-      print(f"{aluno['nome']:<15} | {aluno['plano']:<12} | {aluno['idade']:<5} | {aluno['imc']:<6}")
+   if len(listAlunos) > 0:
+      print(f"Total de alunos cadastrados: {len(listAlunos)}\n")
+      print(f"{'Nome':<15} | {'Plano':<12} | {'Idade':<5} | {'IMC':<6}")
+      print("-" * 50)
+      for aluno in listAlunos:
+         print(f"{aluno['nome']:<15} | {aluno['plano']:<12} | {aluno['idade']:<5} | {aluno['imc']:<6}")
+      new_log(f'Usúario listou todos os alunos.')
+   else:
+      print('Nenhum aluno cadastrado.')
 
 
 
 def pesquisar_aluno(listAlunos):
-   nameAluno = input('Digite o nome do alunos que deseja encontrar.\n> ')
+   nameAluno = input('Digite o nome dos alunos que deseja encontrar.\n> ')
    verify = False
    for aluno in listAlunos:
       if nameAluno.lower() in aluno['nome'].lower():
@@ -163,7 +178,7 @@ Altura: {aluno['altura']:.2f}
 Peso: {aluno['peso']}
 Plano: {aluno['plano']}
 IMC: {aluno['imc']}\n""")
-      
+      new_log(f'Usúario pesquisou sobre os alunos(as) chamados: {nameAluno.capitalize()}')
    if not verify:
       print(f'Nenhum resultado encontrado para o nome: {nameAluno}')
       
@@ -187,27 +202,33 @@ Aluno(a): {aluno['nome']}
          try:
             if choiceChange == '1':
                newIdade = int(input('Digite a nova idade.\n> '))
+               new_log(f'Usúario mudou a idade do aluno(a): {aluno['nome']} | Antes: {aluno['idade']} anos - Depois: {newIdade} anos.')
                aluno['idade'] = newIdade
                print('\nIdade alterada.')
             elif choiceChange == '2':
                newPeso = float(input('Digite o novo peso.\n> '))
+               new_log(f'Usúario mudou o peso do aluno(a): {aluno['nome']} | Antes: {aluno['peso']}KG. - Depois: {newPeso}KG.')
                aluno['peso'] = newPeso; aluno['imc'] = round(newPeso / (aluno['altura'] ** 2), 2)
                print('\nPeso alterado.')
             elif choiceChange == '3':
                newAltura = float(input('Digite a nova altura.\n> '))
+               new_log(f'Usúario mudou a altura do aluno(a): {aluno['nome']} | Antes: {aluno['altura']} - Depois: {newAltura}')
                aluno['altura'] = round(newAltura, 2); aluno['imc'] = round(aluno['peso'] / (newAltura ** 2), 2)
                print('\nAltura alterada.')
             elif choiceChange == '4':
                newPlano = int(input("""Qual o novo plano do aluno?\n\n1 - Mensal\n2 - Trimestral\n3 - Anual\n> """))
                if newPlano == 1:
+                  new_log(f'Usúario alterou o plano do aluno(a): {aluno['nome']} | Antes: Plano {aluno['plano']} - Depois: Plano Mensal')
                   aluno['plano'] = 'Mensal'
                   print('\nPlano alterado com sucesso!')
                   
                elif newPlano == 2:
+                  new_log(f'Usúario alterou o plano do aluno(a): {aluno['nome']} | Antes: Plano {aluno['plano']} - Depois: Plano Trimestral')
                   aluno['plano'] = 'Trimestral'
                   print('\nPlano alterado com sucesso!')
                   
                elif newPlano == 3:
+                  new_log(f'Usúario alterou o plano do aluno(a): {aluno['nome']} | Antes: Plano {aluno['plano']} - Depois: Plano Anual')
                   aluno['plano'] = 'Anual'
                   print('\nPlano alterado com sucesso!')
                   
@@ -236,6 +257,7 @@ def excluir_aluno(listAlunos):
                
 > """)
          if removeChoice == '1':
+            new_log(f'Usúario removeu o aluno: {aluno['nome']}')
             listAlunos.remove(aluno)
             print('\nAluno removido com sucesso.')
          elif removeChoice == '2':
@@ -260,6 +282,7 @@ def gerenciar_treinos(listAlunos):
             choice = input(f'\nAluno selecionado: {aluno['nome']}\n\n1 - Adicionar\n2 - Proximo/Sair\n> ')
             if choice == '1':
                treino = input("Qual seria o treino que deseja adicionar?\n> ")
+               new_log(f'Usúario adicionou um novo treino ao aluno: {aluno['nome']} | Treino: {treino}')
                aluno['treinos'].append(treino)
             else:
                print('Voltando ao menu inicial.')
@@ -273,6 +296,7 @@ def gerenciar_treinos(listAlunos):
                try:
                   indexTreino = int(input('Digite o número exato do treino que deseja remover. Liste todos primeiro! \n0 - Sair\n> '))
                   if indexTreino != 0:
+                     new_log(f'Usúario removeu um treino do aluno: {aluno['nome']} | Treino: {aluno['treinos'][indexTreino - 1]}')
                      aluno['treinos'].remove(aluno['treinos'][indexTreino - 1])
                      print('Treino removido com sucesso!')
                   else:
@@ -286,6 +310,7 @@ def gerenciar_treinos(listAlunos):
       for aluno in listAlunos:
          if nameAluno.lower() in aluno['nome'].lower():
             if len(aluno['treinos']) > 0:
+               new_log(f'Usúario listou os treinos dos alunos chamados(as): {nameAluno.capitalize()}')
                print(f"""
         {aluno['nome']}
                   
@@ -311,9 +336,61 @@ def ranking_imc(listAlunos):
                c += 1
                print(f'{c:^7} | {aluno['nome']:<17} | {aluno['imc']:<6}')
       print('-' * 40)
+      new_log(f'Usúario analisou o rankings de melhores IMCs')
    else:
       print('\nÉ necessário no mínimo 3 alunos para obter o ranking de IMC.')
 
+
+
+def backup(listAlunos):
+   listAlunosMod = listAlunos
+   choice = input('Selecione:\n1 - Criar novo backup\n2 - Carregar backup anterior\n3 - Sair\n> ')
+   if choice == '1':
+      with open('backup.pkl', 'wb') as arq:
+         pickle.dump(listAlunos, arq)
+      new_log(f'Usúario criou um novo backup')
+      print('Backup feito com sucesso.')
+   elif choice == '2':
+      try:
+         with open('backup.pkl', 'rb') as arq:
+            listAlunosMod = pickle.load(arq)
+         new_log(f'Usúario carregou um backup antigo.')
+         print('Backup carregado com sucesso.')
+      except:
+         print('Erro. Tente criar um novo backup!')
+         return listAlunosMod
+   elif choice == '3':
+      print('Retornando...')
+   return listAlunosMod
+
+
+
+def logs():
+   choice = input('Selecione:\n1 - Mostrar logs\n2 - Apagar logs\n3 - Sair\n> ')
+   if choice == '1':
+      with open('logs.txt', 'r') as arq:
+         file = arq.read()
+      if file == '':
+         print("Logs vazias. Nada a ser mostrado!")
+      else:
+         print(file)
+   elif choice == '2':
+      with open('logs.txt', 'w') as arq:
+         arq.write('')
+      print('Logs apagadas.')
+   elif choice == '3':
+      print('Voltando ao menu.')
+   else:
+      print('Digite uma opção válida. Voltando ao menu.')
+
+
+def init_logs():
+   try:
+      with open('logs.txt', 'r') as arq:
+         arq.write("")
+   except:
+      with open('logs.txt', 'w') as arq:
+         arq.write("")
                
 
 #    888b     d888                            
@@ -325,6 +402,9 @@ def ranking_imc(listAlunos):
 #    888   "   888 Y8b.     888  888 Y88b 888 
 #    888       888  "Y8888  888  888  "Y88888                         
 
+
+# Inicializando logs.
+init_logs()
 listAlunos = list()
 while True:
    sleep(3)
@@ -450,7 +530,10 @@ while True:
 #    \_____/\__,_|\___|_|\_\\__,_| .__/ 
 #                                |_|    
    elif choice == "8":
-      pass
+      try:
+         listAlunos = backup(listAlunos)
+      except Exception as e:
+         print(f'Ocorreu um erro ao tentar gerenciar os backups. Tente novamente! Erro: {e}')
 
 #       __                 
 #      / /  ___   __ _ ___ 
@@ -459,7 +542,10 @@ while True:
 #    \____/\___/ \__, |___/
 #                |___/     
    elif choice == "9":
-      pass
+      try:
+         logs()
+      except Exception as e:
+         print(f'Ocorreu um erro ao tentar gerenciar as logs. Tente novamente! Erro: {e}')
 
 #     __       _      
 #    / _\ __ _(_)_ __ 
