@@ -48,17 +48,6 @@ Criar um sistema COMPLETO de gerenciamento de alunos e treinos da academia.
 
 ---------------------------------------------------
 
-💾 BONUS (opcional):
-
-- Adicione cores no terminal (ANSI codes):
-  - Verde para sucesso
-  - Vermelho para erro
-  - Amarelo para avisos
-
-- Mostre sempre o horário atual no topo do menu principal.
-
----------------------------------------------------
-
 ⚙️ DICA DE ESTRUTURA DO CÓDIGO:
 
 1️⃣ Funções principais:
@@ -106,6 +95,35 @@ import pickle
 #    888     888  888 888  888 888      888    888 888  888 888  888 "Y8888b. 
 #    888     Y88b 888 888  888 Y88b.    Y88b.  888 Y88..88P 888  888      X88 
 #    888      "Y88888 888  888  "Y8888P  "Y888 888  "Y88P"  888  888  88888P' 
+
+def mostrar_menu():
+      print(r"""
+  /$$$$$$                                 /$$$$$$                        /$$                            
+ /$$__  $$                               /$$__  $$                      | $$                            
+| $$  \__/ /$$   /$$ /$$$$$$/$$$$       | $$  \__/ /$$   /$$  /$$$$$$$ /$$$$$$    /$$$$$$  /$$$$$$/$$$$ 
+| $$ /$$$$| $$  | $$| $$_  $$_  $$      |  $$$$$$ | $$  | $$ /$$_____/|_  $$_/   /$$__  $$| $$_  $$_  $$
+| $$|_  $$| $$  | $$| $$ \ $$ \ $$       \____  $$| $$  | $$|  $$$$$$   | $$    | $$$$$$$$| $$ \ $$ \ $$
+| $$  \ $$| $$  | $$| $$ | $$ | $$       /$$  \ $$| $$  | $$ \____  $$  | $$ /$$| $$_____/| $$ | $$ | $$
+|  $$$$$$/|  $$$$$$$| $$ | $$ | $$      |  $$$$$$/|  $$$$$$$ /$$$$$$$/  |  $$$$/|  $$$$$$$| $$ | $$ | $$
+ \______/  \____  $$|__/ |__/ |__/       \______/  \____  $$|_______/    \___/   \_______/|__/ |__/ |__/
+           /$$  | $$                               /$$  | $$                                            
+          |  $$$$$$/                              |  $$$$$$/                                            
+           \______/                                \______/                                             
+          
+1 - Cadastrar aluno
+2 - Listar todos os alunos
+3 - Pesquisar aluno
+4 - Atualizar dados
+5 - Excluir aluno
+6 - Adicionar/Remover treinos de um aluno
+7 - Ranking de IMC
+8 - Backup automático
+9 - Log de ações
+10 - Sair
+
+--------------------------------------""")
+
+
 
 def new_log(text):
    formato = "[%d/%m/%Y] %H:%M:%S - "
@@ -387,7 +405,7 @@ def logs():
 def init_logs():
    try:
       with open('logs.txt', 'r') as arq:
-         arq.write("")
+         pass
    except:
       with open('logs.txt', 'w') as arq:
          arq.write("")
@@ -408,32 +426,8 @@ init_logs()
 listAlunos = list()
 while True:
    sleep(3)
-   print(r"""
-  /$$$$$$                                 /$$$$$$                        /$$                            
- /$$__  $$                               /$$__  $$                      | $$                            
-| $$  \__/ /$$   /$$ /$$$$$$/$$$$       | $$  \__/ /$$   /$$  /$$$$$$$ /$$$$$$    /$$$$$$  /$$$$$$/$$$$ 
-| $$ /$$$$| $$  | $$| $$_  $$_  $$      |  $$$$$$ | $$  | $$ /$$_____/|_  $$_/   /$$__  $$| $$_  $$_  $$
-| $$|_  $$| $$  | $$| $$ \ $$ \ $$       \____  $$| $$  | $$|  $$$$$$   | $$    | $$$$$$$$| $$ \ $$ \ $$
-| $$  \ $$| $$  | $$| $$ | $$ | $$       /$$  \ $$| $$  | $$ \____  $$  | $$ /$$| $$_____/| $$ | $$ | $$
-|  $$$$$$/|  $$$$$$$| $$ | $$ | $$      |  $$$$$$/|  $$$$$$$ /$$$$$$$/  |  $$$$/|  $$$$$$$| $$ | $$ | $$
- \______/  \____  $$|__/ |__/ |__/       \______/  \____  $$|_______/    \___/   \_______/|__/ |__/ |__/
-           /$$  | $$                               /$$  | $$                                            
-          |  $$$$$$/                              |  $$$$$$/                                            
-           \______/                                \______/                                             
-          
-1 - Cadastrar aluno
-2 - Listar todos os alunos
-3 - Pesquisar aluno
-4 - Atualizar dados
-5 - Excluir aluno
-6 - Adicionar/Remover treinos de um aluno
-7 - Ranking de IMC
-8 - Backup automático
-9 - Log de ações
-10 - Sair
-
---------------------------------------""")
-   choice = input('\n> ')
+   mostrar_menu()
+   choice = input('> ')
 
 #       ___          _           _                          _                   
 #      / __\__ _  __| | __ _ ___| |_ _ __ __ _ _ __    __ _| |_   _ _ __   ___  
