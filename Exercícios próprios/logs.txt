@@ -1,0 +1,2 @@
+[13/10/2025] 21:34:00 - Usúario adicionou um novo treino ao aluno: Nicolas eduardo | Treino: Biceps e triceps
+[13/10/2025] 21:34:10 - Usúario listou os treinos dos alunos chamados(as): Nicolas
