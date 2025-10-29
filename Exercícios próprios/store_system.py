@@ -120,6 +120,9 @@ def login():
         elif choice not in ['1', '2']:
             print('Escolha inválida.')
 
+def client_menu():
+    return
+
 def admin_menu(admin):
     productsList = load_file_binary('products.pkl')
     while True:
@@ -140,7 +143,8 @@ def admin_menu(admin):
 1 - Cadastrar novo produto
 2 - Editar produto
 3 - Excluir produto
-4 - Voltar
+4 - Listar todos os produtos (Obter ID)
+5 - Voltar
 """)
             choice = input("> ")
             if choice == '1':
@@ -161,36 +165,67 @@ def admin_menu(admin):
 
 
             elif choice == '2':
-                print("""
-1 - Listar todos os produtos (Obter índice)
-2 - Editar um produto (Índice necessário)""")
-                
-                choice = input('> ')
+                try:
+                    index = int(input('Digite o ID do produto desejado: '))
+                except:
+                    print('ID inválido.')
+                    continue
+                if index < len(productsList) and index >= 0:
+                    print(f"Produto encontrado.\n\n{'ID':<5} | {'Nome':<25} | {'Preço':<5} | {'Estoque':<6}")
+                    print("-" * 50)
+                    print(f"{index:<5} | {productsList[index]['name']:<25} | R$ {productsList[index]['price']:<5} | {productsList[index]['stock']:<6}")
+                    print("-" * 50)
+                    choice = input('\nO que deseja editar?\n1 - Nome\n2 - Categoria\n3 - Estoque\n4 - Preço\n> ')
 
-                if choice == '1':
-                    listar_produtos(productsList)
-
-                elif choice == '2':
-                    try:
-                        index = int(input('Digite o ID do produto desejado: '))
-                    except:
-                        print('ID inválido.')
-                        continue
-                    if index < len(productsList) and index >= 0:
-                        print(f"Produto encontrado.\n\n{'ID':<5} | {'Nome':<25} | {'Preço':<5} | {'Estoque':<6}")
-                        print("-" * 50)
-                        print(f"{index:<5} | {productsList[index]['name']:<25} | {productsList[index]['price']:<5} | {productsList[index]['stock']:<6}")
-                        print("-" * 50)
-                        choice = input('\nO que deseja editar?\n1 - Nome\n2 - Categoria\n3 - Estoque\n4 - Preço\n> ')
+                    if choice == '1':
+                        newName = input('Digite um novo nome para o produto\n> ')
+                        productsList[index]['name'] = newName
+                        print('Nome alterado com sucesso!')
+                    elif choice == '2':
+                        newName = input('Digite uma nova categoria para o produto\n> ')
+                        productsList[index]['category'] = newName
+                        print('Categoria alterada com sucesso!')
+                    elif choice == '3':
+                        try:
+                            newName = int(input('Digite uma nova quantidade de estoque para o produto\n> '))
+                        except:
+                            print('Valor inválido.')
+                        
+                        productsList[index]['stock'] = newName
+                        print('Estoque modificado com sucesso!')
+                    elif choice == '4':
+                        try:
+                            newName = float(input('Digite um novo preço para o produto\n> '))
+                        except:
+                            print('Valor inválido.')
+                        productsList[index]['price'] = newName
+                        print('Preço alterado com sucesso!')
             elif choice == '3':
-                pass
+                try:
+                    index = int(input('Digite o ID do produto desejado: '))
+                except:
+                    print('ID inválido.')
+                    continue
+                if index < len(productsList) and index >= 0:
+                    print(f"Produto encontrado.\n\n{'ID':<5} | {'Nome':<25} | {'Preço':<5} | {'Estoque':<6}")
+                    print("-" * 50)
+                    print(f"{index:<5} | {productsList[index]['name']:<25} | R$ {productsList[index]['price']:<5} | {productsList[index]['stock']:<6}")
+                    print("-" * 50)
+                    choice = input('\nO que deseja fazer?\n1 - Excluir produto\n2 - Voltar\n> ')
+
+                    if choice == '1':
+                        productsList.remove(productsList[index])
+                        print('Produto removido com sucesso!')
+                    elif choice == '2':
+                        continue
+                    else:
+                        print('Escolha inválida.')
             elif choice == '4':
+                listar_produtos(productsList)
+            elif choice == '5':
                 continue
             else:
                 print('Opção inválida.')
-                
-
-
 
         elif choice == '2':
             pass
