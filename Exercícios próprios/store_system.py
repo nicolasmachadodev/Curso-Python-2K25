@@ -113,15 +113,75 @@ def login():
             if user == 'admin':
                 usersList.append({'user': user, 'email': email, 'password': password, 'admin': True})
             else:
-                usersList.append({'user': user, 'email': email, 'password': password, 'admin': False})
+                usersList.append({'user': user, 'email': email, 'password': password, 'admin': False, 'carrinho': []})
             save_file('users.pkl', usersList)
             print('\nUsuário cadastrado com sucesso.')
 
         elif choice not in ['1', '2']:
             print('Escolha inválida.')
 
-def client_menu():
-    return
+def client_menu(client):
+    
+    while True:
+        productsList = load_file_binary('products.pkl')
+        usersList = load_file_binary('users.pkl');
+        for index, d in enumerate(usersList):
+            if d['user'] == client['user']:
+                indexUser = index
+        big_logo()
+        print("""
+1 - Ver produtos disponíveis
+2 - Adicionar produto ao carrinho
+3 - Ver carrinho
+4 - Finalizar compra
+5 - Ver histórico de compras
+6 - Alterar meus dados
+7 - Sair""")
+        
+        choice = input('> ')
+
+        if choice == '1':
+            listar_produtos(productsList)
+        elif choice == '2':
+            try:
+                index = int(input('Digite o ID do produto desejado: '))
+            except:
+                print('ID inválido.')
+                continue
+            if index < len(productsList) and index >= 0:
+                print(f"Produto encontrado.\n\n{'ID':<5} | {'Nome':<25} | {'Preço':<5} | {'Estoque':<6}")
+                print("-" * 50)
+                print(f"{index:<5} | {productsList[index]['name']:<25} | R$ {productsList[index]['price']:<5} | {productsList[index]['stock']:<6}")
+                print("-" * 50)
+                choice = input('\nDeseja adicionar este produto ao carrinho?\n1 - Sim\n2 - Não\n> ')
+                if choice == '1':
+                    client['carrinho'].append(productsList[index])
+                    usersList = [client if user == client else user for user in usersList]
+                    if productsList[index]['stock'] == 1:
+                        productsList.remove(productsList[index])
+                    else:
+                        productsList[index]['stock'] -= 1
+                    save_file('users.pkl', usersList)
+                    save_file('products.pkl', productsList)
+                    print('Produto adicionado com sucesso ao carrinho.')
+                else:
+                    print('Retornando...')
+                    continue
+        elif choice == '3':
+            if len(client['carrinho']) > 0:
+                print(f"Produto encontrado.\n\n{'ID':<5} | {'Nome do produto':<25} | {'Preço':<5}")
+                for index, product in enumerate(client['carrinho']):
+                    print("-" * 50)
+                    print(f"{index:<5} | {product['name']:<25} | R$ {product['price']:<5}")
+                print("-" * 50)
+        elif choice == '4':
+            pass
+        elif choice == '5':
+            pass
+        elif choice == '6':
+            pass
+        elif choice == '7':
+            pass
 
 def admin_menu(admin):
     productsList = load_file_binary('products.pkl')
@@ -237,8 +297,13 @@ def admin_menu(admin):
             print('Opção inválida.')
 
 create_files('users.pkl', 'products.pkl', 'vendas.pkl', 'backup.pkl')
-usersList = load_file_binary('users.pkl'); activeUser = login();
+
+usersList = load_file_binary('users.pkl');
+activeUser = login();
+
 print(f'Seja bem vindo(a): {activeUser['user'].capitalize()}')
 
 if activeUser['admin']:
     admin_menu(activeUser)
+else:
+    client_menu(activeUser)
