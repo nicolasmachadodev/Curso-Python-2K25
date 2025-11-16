@@ -155,25 +155,14 @@ def client_menu(client):
                 print("-" * 50)
                 choice = input('\nDeseja adicionar este produto ao carrinho?\n1 - Sim\n2 - Não\n> ')
                 if choice == '1':
-                    client['carrinho'].append(productsList[index])
-                    usersList = [client if user == client else user for user in usersList]
-                    if productsList[index]['stock'] == 1:
-                        productsList.remove(productsList[index])
-                    else:
-                        productsList[index]['stock'] -= 1
-                    save_file('users.pkl', usersList)
-                    save_file('products.pkl', productsList)
-                    print('Produto adicionado com sucesso ao carrinho.')
-                else:
-                    print('Retornando...')
-                    continue
+                    for product in client['carrinho']:
+                        if product['name'] == productsList[index]['name']:
+                            product['quant'] += 1
+                                        
+            else:
+                print('Produto não encontrado.')
         elif choice == '3':
-            if len(client['carrinho']) > 0:
-                print(f"Produto encontrado.\n\n{'ID':<5} | {'Nome do produto':<25} | {'Preço':<5}")
-                for index, product in enumerate(client['carrinho']):
-                    print("-" * 50)
-                    print(f"{index:<5} | {product['name']:<25} | R$ {product['price']:<5}")
-                print("-" * 50)
+            pass
         elif choice == '4':
             pass
         elif choice == '5':
@@ -220,7 +209,7 @@ def admin_menu(admin):
                 except:
                     print('Insira um valor válido.')
                     continue
-                productsList.append({'name': productName, 'category': productCategory, 'price': productPrice, 'stock': productStock})
+                productsList.append({'name': productName, 'category': productCategory, 'price': productPrice, 'stock': productStock, 'quant': 0})
                 save_file('products.pkl', productsList)
 
 
